@@ -1,9 +1,3 @@
-var express = require('express');
-var router = express.Router();
-const bodyParser = require('body-parser');
-const app = express();
-const port = 3000;
-
 let respuesta = {};
 let pjson = require('../../package.json');
 
