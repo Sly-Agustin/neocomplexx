@@ -1,6 +1,6 @@
-const expressInit = require('express');
+const express = require('express');
 const bodyParser = require('body-parser');
-const app = expressInit();
+const app = express();
 const port = 3000;
 
 app.get('/', function (req, res) {
@@ -9,8 +9,7 @@ app.get('/', function (req, res) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-let respuesta = {};
-let pjson = require('./package.json');
+var apiRequest1=require('./rutas/api/request1');
 
 function index(req, res){
     res.sendFile('index.html', {root: __dirname});
@@ -19,18 +18,10 @@ function index(req, res){
 app.get('/', function (req, res) {
     res.sendFile('index.html', {root: __dirname});
 });
-app.get('/api/request1', function (req, res) {
-    let versionMsg = pjson.version;
-    let nameMsg = pjson.name;
-    respuesta = {
-        codigo: 200,
-        mensaje: 'Request exitosa',
-        version: versionMsg,
-        name: nameMsg
-    }
-    res.send(respuesta);
-});
 
+var apiRouter = express.Router();
+app.use('/api', apiRouter);
+apiRouter.get('/request1',apiRequest1.request1);
 
 app.listen(port, () => {
     console.log(`Now listening on port ${port}`);
