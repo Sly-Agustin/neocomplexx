@@ -1,3 +1,5 @@
+const path = require('path');
+
 let respuesta = {};
 let pjson = require('../../package.json');
 
@@ -11,6 +13,6 @@ module.exports = {
             version: versionMsg,
             name: nameMsg
         }
-        res.send(respuesta);
+        res.json(respuesta);        // res.send también funciona porque seteamos el bodyParser con json...
     }
 }
