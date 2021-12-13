@@ -1,4 +1,4 @@
-/* Requerimientos básicos para correr la aplicación */
+/* Basic initialization */
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -7,23 +7,23 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Archivos donde se encuentran las rutas, en este caso solo tenemos la de la API.
+// Routes files, at the moment there is only the API route
 var apiRequest1=require('./rutas/api/request1');
 
-/* Router para las direcciones base */
-var indexRouter = express.Router();
+/* Base Router */
+/*var indexRouter = express.Router();
 app.use('/', indexRouter);
 indexRouter.get('/', function (req, res) {
     res.render('index.ejs', {root: __dirname});
-}); /* alternativa: app.get('/', function() { ... }) pero esta alternativa es "global" y no modularizada */
+}); /* alternative: app.get('/', function() { ... }) however this alternative is "global" y not modularized */
 
-/* Router para las rutas de la API, actualmente se tiene una sola, hacer esto y tener modularizadas las rutas en distintos archivos
-es conveniente a tener todas las rutas con funciones anónimas juntas */
+/* Router for APIs routes, there is just one for the moment, it's convenient to have routes modularized across files instead of having
+them in altogether in anonymous functions*/
 var apiRouter = express.Router();
-app.use('/api', apiRouter);
-apiRouter.get('/request1',apiRequest1.request1);
+app.use('/', apiRouter);
+apiRouter.get('/',apiRequest1.request1);
 
-// Ruta en caso de página no encontrada
+// 404 route
 app.use((req, res, next) => {
     var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     res.status(404).render("404.ejs", { url: fullUrl});

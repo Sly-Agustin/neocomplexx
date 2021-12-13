@@ -1,8 +1,17 @@
 # neocomplexx
-Proyecto super basico para familiarizarse con nodejs y express.
+Basic proyect to familiarize with nodejs and express.
 
-# Funcionamiento
-Para usar la API:
-- Montar el servidor con "node index.js"
-- Para ir al index ingresar a: "http://localhost:3000"
-- Ingresar a la URL o enviar una solicitud con Postman a "http://localhost:3000/api/request1"
+# Install
+Make sure to have node installed, you can get it here `https://nodejs.org/en/download/`
+Download the proyect, unzip it and it's ready to go.
+
+# Usage
+To use the API:
+- ` $ npm run start `
+- Enter the next URL or send a GET request in Postman to `"http://localhost:3000"`
+
+# Contributing
+PRs accepted.
+
+# License
+MIT © Agustin Sly
