@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "asd123",
-    "database": "database_development",
+    "database": "mysql_testeo",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
