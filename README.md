@@ -3,6 +3,7 @@ Basic proyect to familiarize with nodejs and express.
 
 # Install
 Make sure to have node installed, you can get it here `https://nodejs.org/en/download/`
+Run `npm install` to install dependencies
 Download the proyect, unzip it and it's ready to go.
 
 # Usage
