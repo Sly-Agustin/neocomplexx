@@ -12,15 +12,6 @@ database.sequelize.authenticate()
         console.log(error);
     });
 
-/*modelo.findAll({attributes:['nombre', 'apellido', 'cargo', 'dni']})
-    .then(empleados => {
-        let resultados = JSON.stringify(empleados);
-        console.log(resultados);
-    })
-    .catch(error => {
-        console.log(error);
-    })*/
-
 app.listen(port, () => {
 	console.log(`Now listening on port ${port}`);
 });
