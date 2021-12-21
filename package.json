@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "localDatabase": "node dbConnectionLocal.js"
+    "localDatabase": "node dbConnectionLocal.js",
+    "migrateEverything": "npx sequelize-cli db:migrate",
+    "seedEverything": "npx sequelize-cli db:seed:all"
   },
   "repository": {
     "type": "git",
