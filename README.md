@@ -21,6 +21,18 @@ The database uses port 3306 to comunicate, which is usually the default port for
 - Migrate tables to the database with `npm run migrateEverything`
 - Upload placeholder data with `npm run seedEverything`
 
+To use the add an employee to the database with a POST request:
+- Be sure to have the docker and database up
+- Use a program like Postman to make requests
+- URL: `http://localhost:3000/newEmployee`
+- Attributes needed: name, lastName, position. For example:
+`{
+	"name": "Carlos",
+	"lastName": "Shull",
+	"position": "Developer"
+}`
+- A message will be displayed if something is missing or the creation has been made.
+
 # Contributing
 PRs accepted.
 
