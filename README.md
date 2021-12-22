@@ -14,14 +14,14 @@ To use the API:
 To use access your local database:
 - Use the env.sample file as template, create a .env file and fill with your database credentials
 - ` $ npm run localDatabase` will show a successful database message if credentials were correct
-
+<br /><br />
 
 To mount the database in docker it's required to have docker installed, if you don't have it download from here `https://docs.docker.com/engine/install/`
 The database uses port 3306 to comunicate, which is usually the default port for MySQL, stop this service before trying to mount the docker database. In Windows this can be done with `net stop MySQL80`. In GNU/Linux `sudo /etc/init.d/mysql stop`.
 - To start the database run `docker-compose up`
 - Migrate tables to the database with `npm run migrateEverything`
 - Upload placeholder data with `npm run seedEverything`
-
+<br /><br />
 
 To use the add an employee to the database with a POST request:
 - Be sure to have the docker and database up
@@ -34,6 +34,7 @@ To use the add an employee to the database with a POST request:
 	"position": "Developer"
 }`
 - A message will be displayed if something is missing or the creation has been made.
+<br /><br />
 
 # Contributing
 PRs accepted.
