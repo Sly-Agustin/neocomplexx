@@ -72,23 +72,23 @@ async function getEmployeeById(req, res) {
 	}
 
 	try {
-		let employee = await db.empleados.findAll({ where: { id: req.params.id } });
+		let employee = await db.empleados.findAll({ attributes: ['id', 'nombre', 'apellido'], where: { id: req.params.id } });
 		if (Object.keys(employee).length === 0) {
 			res.status(200).send({
 				message: 'There is no employee associated to ID: ' + req.params.id,
 			});
 			return;
 		}
+
+		res.status(200).send({
+			employee: employee[0],
+		});
 	} catch (err) {
 		res.status(400).send({
 			message: 'An error has ocurred',
 			messageError: err.parent.sqlMessage,
 		});
 	}
-
-	res.status(200).send({
-		employee: employee[0],
-	});
 }
 
 module.exports = { newEmployee, allEmployees, getEmployeeById };
