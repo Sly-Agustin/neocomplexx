@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "node index.js",
+		"start": "nodemon ./index.js",
 		"localDatabase": "node dbConnectionLocal.js",
 		"migrateEverything": "npx sequelize-cli db:migrate",
 		"seedEverything": "npx sequelize-cli db:seed:all",
@@ -29,6 +29,7 @@
 		"sequelize": "^6.12.0-beta.3"
 	},
 	"devDependencies": {
+		"nodemon": "^2.0.15",
 		"prettier": "2.5.1",
 		"sequelize-cli": "^6.3.0"
 	}
