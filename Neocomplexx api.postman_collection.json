@@ -42,7 +42,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"name\": \"Diego\",\r\n\t\"lastName\": \"Martinez\",\r\n\t\"position\": \"Tester\"\r\n}",
+					"raw": "{\r\n\t\"name\": \"Ramiro\",\r\n\t\"lastName\": \"Casillas\",\r\n\t\"position\": \"Diseñador\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -105,6 +105,25 @@
 						}
 					}
 				},
+				"url": {
+					"raw": "http://localhost:3000/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Try to add an empty employee",
+			"request": {
+				"method": "POST",
+				"header": [],
 				"url": {
 					"raw": "http://localhost:3000/employees",
 					"protocol": "http",

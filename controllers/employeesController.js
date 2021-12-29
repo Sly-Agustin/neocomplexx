@@ -1,4 +1,5 @@
 const { type } = require('express/lib/response');
+const { check } = require('prettier');
 const db = require('../models');
 
 function getAttributesFromRequest(req){
@@ -8,34 +9,56 @@ function getAttributesFromRequest(req){
 		position: req.body.position
 	}
 }
-
-async function newEmployee(req, res) {
-	if (!Object.keys(req.body).length === 0) {
+function validateEmployee(req, res) {
+	if (attributesInRequest(req, res) && attributesInRequestDefined(req, res) && checkTypeOfAttributes(req, res)) {
+		return true;
+	}
+	return false;
+}
+function attributesInRequest(req, res) {
+	if (emptyObject(req.body)) {
 		res.status(400).send({
 			message: 'No attributes in body',
-			contentOfBody: req.body,
 		});
-		return;
+		return false;
 	}
+	console.log(Object.keys(req.body))
+	return true;
+}
 
+function attributesInRequestDefined(req, res) {
 	let {name: name, lastName: lastName, position: position} = getAttributesFromRequest(req);
 
 	if (name == undefined || lastName == undefined || position == undefined) {
 		res.status(400).send({
 			message: 'No name / last name / position filled',
 		});
-		return;
+		return false;
 	}
+	return true;
+}
+
+function checkTypeOfAttributes(req, res) {
+	let {name: name, lastName: lastName, position: position} = getAttributesFromRequest(req);
 
 	if (typeof name !== 'string' || typeof lastName !== 'string' || typeof position !== 'string') {
 		res.status(400).send({
 			message: 'Field content cant be a number, they must be characters',
 		});
+		return false;
+	}
+	return true
+}
+
+async function newEmployee(req, res) {
+	if (!validateEmployee(req, res)) {
 		return;
 	}
 
+	let {name: name, lastName: lastName, position: position} = getAttributesFromRequest(req);
+
 	try {
-		let aux = await db.empleados.create({
+		await db.empleados.create({
 			nombre: name,
 			apellido: lastName,
 			cargo: position,
@@ -70,9 +93,29 @@ async function allEmployees(req, res) {
 	});
 }
 
+function isNumber(posibleId){
+	let id = parseInt(posibleId, 10);
+	if (isNaN(id)) {
+		return false;
+	}
+	return true;
+}
+function emptyObject(obj) {
+	if (Object.keys(obj).length === 0) {
+		return true;
+	}
+	return false;
+}
+function isEmployee(obj){
+	if (!emptyObject(obj)){
+		return true
+	}
+	return false;
+}
+
 async function getEmployeeById(req, res) {
 	let id = parseInt(req.params.id, 10);
-	if (isNaN(id)) {
+	if (!isNumber(id)){
 		res.status(400).send({
 			message: 'IDs must be a number',
 		});
@@ -81,20 +124,18 @@ async function getEmployeeById(req, res) {
 
 	try {
 		let employee = await db.empleados.findAll({ attributes: ['id', 'nombre', 'apellido'], where: { id: req.params.id } });
-		if (Object.keys(employee).length === 0) {
+		if (!isEmployee(employee)) {
 			res.status(200).send({
 				message: 'There is no employee associated to ID: ' + req.params.id,
 			});
 			return;
 		}
-
 		res.status(200).send({
 			employee: employee[0],
 		});
 	} catch (err) {
 		res.status(400).send({
 			message: 'An error has ocurred',
-			messageError: err.parent.sqlMessage,
 		});
 	}
 }
