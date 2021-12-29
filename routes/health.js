@@ -9,7 +9,6 @@ function getHealth(req, res) {
 	let versionMsg = pjson.version;
 	let nameMsg = pjson.name;
 	response = {
-		status: 200,
 		version: versionMsg,
 		name: nameMsg,
 	};

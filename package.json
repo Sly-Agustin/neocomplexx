@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "nodemon ./index.js",
-		"localDatabase": "node dbConnectionLocal.js",
+		"checkDatabaseConnection": "node dbConnectionLocal.js",
 		"migrateEverything": "npx sequelize-cli db:migrate",
 		"seedEverything": "npx sequelize-cli db:seed:all",
 		"format": "prettier --write ."
