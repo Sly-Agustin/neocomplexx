@@ -22,7 +22,6 @@ function attributesInRequest(req, res) {
 		});
 		return false;
 	}
-	console.log(Object.keys(req.body))
 	return true;
 }
 
