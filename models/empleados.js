@@ -1,5 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
+const Sequelize = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
 	class empleados extends Model {
 		/**
@@ -16,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
 			nombre: DataTypes.STRING,
 			apellido: DataTypes.STRING,
 			cargo: DataTypes.STRING,
+			createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
+			updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW }
 		},
 		{
 			sequelize,

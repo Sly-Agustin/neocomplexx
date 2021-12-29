@@ -39,8 +39,6 @@ async function newEmployee(req, res) {
 			nombre: name,
 			apellido: lastName,
 			cargo: position,
-			createdAt: new Date(),
-			updatedAt: new Date(),
 		});
 	} catch (err) {
 		if (err.parent.code == 'ER_NO_DEFAULT_FOR_FIELD') {
