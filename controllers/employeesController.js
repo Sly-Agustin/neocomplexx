@@ -1,6 +1,14 @@
 const { type } = require('express/lib/response');
 const db = require('../models');
 
+function getAttributesFromRequest(req){
+	return {
+		name: req.body.name,
+		lastName: req.body.lastName,
+		position: req.body.position
+	}
+}
+
 async function newEmployee(req, res) {
 	if (!Object.keys(req.body).length === 0) {
 		res.status(400).send({
@@ -10,14 +18,16 @@ async function newEmployee(req, res) {
 		return;
 	}
 
-	if (req.body.name == undefined || req.body.lastName == undefined || req.body.position == undefined) {
+	let {name: name, lastName: lastName, position: position} = getAttributesFromRequest(req);
+
+	if (name == undefined || lastName == undefined || position == undefined) {
 		res.status(400).send({
 			message: 'No name / last name / position filled',
 		});
 		return;
 	}
 
-	if (typeof req.body.name !== 'string' || typeof req.body.lastName !== 'string' || typeof req.body.position !== 'string') {
+	if (typeof name !== 'string' || typeof lastName !== 'string' || typeof position !== 'string') {
 		res.status(400).send({
 			message: 'Field content cant be a number, they must be characters',
 		});
@@ -26,9 +36,9 @@ async function newEmployee(req, res) {
 
 	try {
 		let aux = await db.empleados.create({
-			nombre: req.body.name,
-			apellido: req.body.lastName,
-			cargo: req.body.position,
+			nombre: name,
+			apellido: lastName,
+			cargo: position,
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		});
