@@ -112,7 +112,7 @@ function isEmployee(obj){
 }
 
 async function getEmployeeById(req, res) {
-	let id = parseInt(req.params.id, 10);
+	const id = parseInt(req.params.id, 10);
 	if (!isNumber(id)){
 		res.status(400).send({
 			message: 'IDs must be a number',
