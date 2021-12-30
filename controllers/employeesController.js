@@ -2,14 +2,8 @@ const { type } = require('express/lib/response');
 const { check } = require('prettier');
 const db = require('../models');
 
-function getAttributesFromRequest(req){
-	return { name, lastName, position } =  req.body
-}
 function validateEmployee(req, res) {
-	if (attributesInRequest(req, res) && attributesInRequestDefined(req, res) && checkTypeOfAttributes(req, res)) {
-		return true;
-	}
-	return false;
+	return attributesInRequest(req, res) && attributesInRequestDefined(req, res) && checkTypeOfAttributes(req, res);
 }
 function attributesInRequest(req, res) {
 	if (emptyObject(req.body)) {
@@ -22,7 +16,7 @@ function attributesInRequest(req, res) {
 }
 
 function attributesInRequestDefined(req, res) {
-	let {name: name, lastName: lastName, position: position} = getAttributesFromRequest(req);
+	let { name, lastName, position } =  req.body
 
 	if (name == undefined || lastName == undefined || position == undefined) {
 		res.status(400).send({
@@ -34,7 +28,7 @@ function attributesInRequestDefined(req, res) {
 }
 
 function checkTypeOfAttributes(req, res) {
-	let {name: name, lastName: lastName, position: position} = getAttributesFromRequest(req);
+	let { name, lastName, position } =  req.body
 
 	if (typeof name !== 'string' || typeof lastName !== 'string' || typeof position !== 'string') {
 		res.status(400).send({
@@ -50,7 +44,7 @@ async function newEmployee(req, res) {
 		return;
 	}
 
-	let {name: name, lastName: lastName, position: position} = getAttributesFromRequest(req);
+	let { name, lastName, position } =  req.body
 
 	try {
 		await db.empleados.create({
@@ -65,7 +59,7 @@ async function newEmployee(req, res) {
 				errorMessage: err.parent.sqlMessage,
 			});
 		}
-		res.status(400).send({
+		res.status(500).send({
 			message: 'An error has ocurred',
 			messageError: err.parent.sqlMessage,
 		});
@@ -77,15 +71,24 @@ async function newEmployee(req, res) {
 }
 
 async function allEmployees(req, res) {
-	let employees = await db.empleados.findAll({ attributes: ['id', 'nombre', 'apellido'] });
-	if (Object.keys(employees).length === 0) {
+	try {
+		let employees = await db.empleados.findAll({ attributes: ['id', 'nombre', 'apellido'] });
+		if (Object.keys(employees).length === 0) {
+			res.status(200).send({
+				message: 'There are no employees',
+			});
+		}
 		res.status(200).send({
-			message: 'There are no employees',
+			employees: employees,
 		});
 	}
-	res.status(200).send({
-		employees: employees,
-	});
+	catch(err) {
+		res.status(500).send({
+			message: 'An error has ocurred',
+			messageError: err.parent.sqlMessage,
+		});
+	}
+	
 }
 
 function isNumber(posibleId){
@@ -129,7 +132,7 @@ async function getEmployeeById(req, res) {
 			employee: employee[0],
 		});
 	} catch (err) {
-		res.status(400).send({
+		res.status(500).send({
 			message: 'An error has ocurred',
 		});
 	}
