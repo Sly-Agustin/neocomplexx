@@ -1,0 +1,4 @@
+.env
+.env.amazon
+.env.local
+node_modules

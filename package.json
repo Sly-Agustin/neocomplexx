@@ -1,23 +1,36 @@
 {
-  "name": "neocomplexx",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Sly-Agustin/neocomplexx.git"
-  },
-  "author": "Agustin Sly",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Sly-Agustin/neocomplexx/issues"
-  },
-  "homepage": "https://github.com/Sly-Agustin/neocomplexx#readme",
-  "dependencies": {
-    "ejs": "^3.1.6",
-    "express": "^4.17.1"
-  }
+	"name": "neocomplexx",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon ./index.js",
+		"checkDatabaseConnection": "node dbConnectionLocal.js",
+		"migrateEverything": "npx sequelize-cli db:migrate",
+		"seedEverything": "npx sequelize-cli db:seed:all",
+		"format": "prettier --write ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Sly-Agustin/neocomplexx.git"
+	},
+	"author": "Agustin Sly",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Sly-Agustin/neocomplexx/issues"
+	},
+	"homepage": "https://github.com/Sly-Agustin/neocomplexx#readme",
+	"dependencies": {
+		"dotenv": "^10.0.0",
+		"ejs": "^3.1.6",
+		"eslint": "^8.5.0",
+		"express": "^4.17.1",
+		"mysql2": "^2.3.3",
+		"sequelize": "^6.12.0-beta.3"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.15",
+		"prettier": "2.5.1",
+		"sequelize-cli": "^6.3.0"
+	}
 }
