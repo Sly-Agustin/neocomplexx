@@ -3,11 +3,7 @@ const { check } = require('prettier');
 const db = require('../models');
 
 function getAttributesFromRequest(req){
-	return {
-		name: req.body.name,
-		lastName: req.body.lastName,
-		position: req.body.position
-	}
+	return { name, lastName, position } =  req.body
 }
 function validateEmployee(req, res) {
 	if (attributesInRequest(req, res) && attributesInRequestDefined(req, res) && checkTypeOfAttributes(req, res)) {
